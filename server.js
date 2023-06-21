@@ -1,6 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const Product = require("./models/productModel");
+const dotenv = require("dotenv");
+dotenv.config();
+
 const app = express();
 
 app.use(express.json());
@@ -85,9 +88,7 @@ app.delete("/products/:id", async (req, res) => {
 
 mongoose.set("strictQuery", false);
 mongoose
-  .connect(
-    "mongodb+srv://admin:Pretender00!N@devhenrikapi.w2kqe4x.mongodb.net/Node-API?retryWrites=true&w=majority"
-  )
+  .connect(process.env.CONNECTION_STRING)
   .then(() => {
     console.log("Connected to MongoDB");
     app.listen(3000, () => {
